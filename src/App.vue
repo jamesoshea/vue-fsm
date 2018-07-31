@@ -1,23 +1,32 @@
 <template>
-  <div>
-    <button @click="fetchData">
+  <div class="container">
+    <button class='pure-button' @click="fetchData">
       FETCH DATA
     </button>
     <div>
-      Current state: {{$store.state.state}}
+      Current state: {{state}}
     </div>
     <div>
-      Items: {{$store.state.items}}
+      Items: {{items}}
     </div>
     <div>
-      Loading: {{$store.state.loading}}
+      Loading: {{loading}}
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "app",
+  computed: {
+    ...mapState({
+      state: state => state.state,
+      items: state => state.items,
+      loading: state => state.loading
+    })
+  },
   methods: {
     fetchData() {
       this.$store.dispatch("FETCH_TRANSITION", {
@@ -32,12 +41,9 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.container {
+  width: 100%;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  padding: 1rem;
 }
 </style>
